@@ -47,6 +47,11 @@ public class APIManager : MonoBehaviour
                     });
                     break;
                 case Env.APIResponseType.POKEMON:
+                    EventManager.Instance.Trigger(new OnAPIResponseEvent
+                    {
+                        json = data,
+                        responseType = Env.APIResponseType.POKEMON
+                    });
                     break;
                 default:
                     break;

@@ -8,6 +8,7 @@ using TMPro;
 [Serializable]
 public class PokedexItem
 {
+    public Button pokemonButton;
     public RawImage icon;
     public TextMeshProUGUI name;
     [HideInInspector]
@@ -18,6 +19,7 @@ public class PokedexItem
 
 public class PokedexController : MonoBehaviour
 {
+    [Header("Pokedex")]
     [SerializeField]
     private GameObject pokedexGO;
     [SerializeField]
@@ -30,6 +32,25 @@ public class PokedexController : MonoBehaviour
     private Button nextPageButton;
     [SerializeField]
     private List<PokedexItem> pokedexItemList = new List<PokedexItem>();
+
+    [Header("Pokemon Info")]
+    [SerializeField]
+    private GameObject pokemonInfoGO;
+    [SerializeField]
+    private TextMeshProUGUI pokemonName;
+    [SerializeField]
+    private RawImage pokemonImage;
+    [SerializeField]
+    private TextMeshProUGUI pokemonHeight;
+    [SerializeField]
+    private TextMeshProUGUI pokemonWeight;
+    [SerializeField]
+    private TextMeshProUGUI pokemonType;
+    [SerializeField]
+    private TextMeshProUGUI pokemonAbilities;
+    [SerializeField]
+    private Button backButton;
+
 
     private string nextPage;
     private string prevPage;
@@ -53,6 +74,26 @@ public class PokedexController : MonoBehaviour
             TogglePokedex(false);
             EventManager.Instance.Trigger(new OnPokedexClosedEvent());
         });
+
+        backButton.onClick.AddListener(() =>
+        {
+            TogglePokemonInfo(false);
+        });
+
+        for (int i = 0; i < pokedexItemList.Count; i++)
+        {
+            int counter = i;
+            pokedexItemList[i].pokemonButton.onClick.AddListener(()=>
+            {
+                pokemonName.text = pokedexItemList[counter].name.text;
+                pokemonImage.texture = pokedexItemList[counter].icon.texture;
+                EventManager.Instance.Trigger(new OnAPIRequestEvent
+                {
+                    url = pokedexItemList[counter].url,
+                    type = Env.APIResponseType.POKEMON
+                });
+            });
+        }
     }
 
     private void OnDestroy()
@@ -83,15 +124,22 @@ public class PokedexController : MonoBehaviour
         loadingText.SetActive(!isPokedexEnable);
     }
 
+    private void TogglePokemonInfo(bool showPokemonInfo)
+    {
+        pokemonInfoGO.SetActive(showPokemonInfo);
+        pokedexGO.SetActive(!showPokemonInfo);
+    }
+
     private IEnumerator ShowPokedex(OnAPIResponseEvent e)
     {
-        TogglePokedex(false);
-
-        prevPageButton.interactable = false;
-        nextPageButton.interactable = false;
 
         if (e.responseType == Env.APIResponseType.POKEDEX_PAGE)
         {
+            prevPageButton.interactable = false;
+            nextPageButton.interactable = false;
+
+            TogglePokedex(false);
+
             nextPage = e.json["next"];
             prevPage = e.json["previous"];
             if (pokedexItemList.Count == e.json["results"].Count)
@@ -125,6 +173,41 @@ public class PokedexController : MonoBehaviour
             nextPageButton.interactable = !string.IsNullOrEmpty(nextPage);
 
             TogglePokedex(true);
+        }
+
+        if(e.responseType == Env.APIResponseType.POKEMON)
+        {
+            pokemonHeight.text = e.json["height"];
+            pokemonWeight.text = e.json["weight"];
+
+            pokemonType.text = "";
+            pokemonAbilities.text = "";
+
+            foreach (var type in e.json["types"])
+            {
+                if (string.IsNullOrEmpty(pokemonType.text))
+                {
+                    pokemonType.text += char.ToUpper(type.Value["type"]["name"].Value.ToString()[0]) + type.Value["type"]["name"].Value.ToString().Substring(1);
+                }
+                else
+                {
+                    pokemonType.text += "\n" + char.ToUpper(type.Value["type"]["name"].Value.ToString()[0]) + type.Value["type"]["name"].Value.ToString().Substring(1);
+                }
+            }
+
+            foreach (var abilities in e.json["abilities"])
+            {
+                if (string.IsNullOrEmpty(pokemonAbilities.text))
+                {
+                    pokemonAbilities.text += char.ToUpper(abilities.Value["ability"]["name"].Value.ToString()[0]) + abilities.Value["ability"]["name"].Value.ToString().Substring(1);
+                }
+                else
+                {
+                    pokemonAbilities.text += "\n" + char.ToUpper(abilities.Value["ability"]["name"].Value.ToString()[0]) + abilities.Value["ability"]["name"].Value.ToString().Substring(1);
+                }
+            }
+            
+            TogglePokemonInfo(true);
         }
     }
 }
