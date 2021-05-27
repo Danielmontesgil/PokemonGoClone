@@ -42,6 +42,14 @@ public class UIController : MonoBehaviour
         });
     }
 
+    private void OnDestroy()
+    {
+        if (EventManager.HasInstance())
+        {
+            EventManager.Instance.RemoveListener<OnAccountInfoErrorEvent>(OnAccountInfoErrorEventListener);
+        }
+    }
+
     private void SwitchButton(Button clickedBtn)
     {
         NormalButtonState(clickedButton);
