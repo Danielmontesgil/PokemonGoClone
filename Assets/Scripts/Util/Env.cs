@@ -4,6 +4,9 @@ using UnityEngine;
 
 public static partial class Env
 {
+    ///Paths
+    public const string POKEMON_PATH = "Pokemon";
+    public const string POKEBALL_PATH = "Pokeball";
     ///Scenes
     public const string LOGIN_SCENE = "LogIn";
     public const string MENU_SCENE = "Menu";

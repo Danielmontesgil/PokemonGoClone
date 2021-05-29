@@ -4319,7 +4319,7 @@ GameObject:
   - component: {fileID: 1777683017}
   - component: {fileID: 1777683016}
   m_Layer: 0
-  m_Name: LogInController
+  m_Name: UIController
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

@@ -9,5 +9,6 @@ public class GameInitializer : MonoBehaviour
         EventManager.Init();
         PlayFabManager.Init();
         LoadSceneManager.Init();
+        ResourcesManager.Init();
     }
 }

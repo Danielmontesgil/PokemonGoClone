@@ -148,7 +148,7 @@ public class PokedexController : MonoBehaviour
                 foreach (var pokemon in e.json["results"])
                 {
                     pokedexItemList[counter].name.text = pokemon.Value["name"];
-                    pokedexItemList[counter].name.text = char.ToUpper(pokedexItemList[counter].name.text[0]) + pokedexItemList[counter].name.text.Substring(1); //Bad performace but it saves time
+                    pokedexItemList[counter].name.text = Utils.FirstCharToUpper(pokedexItemList[counter].name.text);
                     pokedexItemList[counter].url = pokemon.Value["url"];
 
                     pokedexItemList[counter].id = int.Parse(pokedexItemList[counter].url.Split('/')[6]);
@@ -187,11 +187,11 @@ public class PokedexController : MonoBehaviour
             {
                 if (string.IsNullOrEmpty(pokemonType.text))
                 {
-                    pokemonType.text += char.ToUpper(type.Value["type"]["name"].Value.ToString()[0]) + type.Value["type"]["name"].Value.ToString().Substring(1);
+                    pokemonType.text += Utils.FirstCharToUpper(type.Value["type"]["name"].Value.ToString());
                 }
                 else
                 {
-                    pokemonType.text += "\n" + char.ToUpper(type.Value["type"]["name"].Value.ToString()[0]) + type.Value["type"]["name"].Value.ToString().Substring(1);
+                    pokemonType.text += "\n" + Utils.FirstCharToUpper(type.Value["type"]["name"].Value.ToString());
                 }
             }
 
@@ -199,11 +199,11 @@ public class PokedexController : MonoBehaviour
             {
                 if (string.IsNullOrEmpty(pokemonAbilities.text))
                 {
-                    pokemonAbilities.text += char.ToUpper(abilities.Value["ability"]["name"].Value.ToString()[0]) + abilities.Value["ability"]["name"].Value.ToString().Substring(1);
+                    pokemonAbilities.text += Utils.FirstCharToUpper(abilities.Value["ability"]["name"].Value.ToString());
                 }
                 else
                 {
-                    pokemonAbilities.text += "\n" + char.ToUpper(abilities.Value["ability"]["name"].Value.ToString()[0]) + abilities.Value["ability"]["name"].Value.ToString().Substring(1);
+                    pokemonAbilities.text += "\n" + Utils.FirstCharToUpper(abilities.Value["ability"]["name"].Value.ToString());
                 }
             }
             
