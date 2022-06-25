@@ -1,4 +1,4 @@
-# PokemonGoClone
+# Pokemon Go Clone
 
 How to play
 
