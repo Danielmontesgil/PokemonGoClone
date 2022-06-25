@@ -1,18 +1,15 @@
 # PokemonGoClone
 
-Pokémon Go Clone
+How to play
 
-Como jugar
+In the first scene you must create an account or log in with an existing one, after this the game will go to the game scene. Every time a plane is found, a random Pokémon will appear that you can try to capture by throwing the pokeball, to throw the pokeball you must make a swipe on it, the speed and distance of the Pokeball depends on the speed of the swipe. There are 9 different Pokemon, if you catch one it won't appear again unless all the Pokemon have been caught.
 
-En la primera escena se debe crear una cuenta o iniciar sesión con una cuenta existente, luego de esto el juego pasará a la escena de juego.
-Cada vez que se encuentre un plano aparecerá un Pokémon aleatorio que se podrá intentar capturar lanzando la pokebola, para lanzar la pokebola se debe hacer un swipe sobre la misma, la velocidad y distancia de esta depende de la rapidez del swipe. Hay 9 Pokémon diferentes, si capturas uno no volverá a aparecer a menos que todos los Pokémon hayan sido capturados.
+In the lower-left part is the pokedex button, when you open it the Pokémon will appear in order, you can use the lower buttons to scroll between the different pages of the pokedex, you can also touch each Pokémon to see more detailed information about it, such as weight, height, type and skills.
 
-En la parte inferior izquierda esta el botón de la pokedex, al abrirlo aparecerán los Pokémon en orden, se pueden usar los botones inferiores para desplazarse entre las diferentes paginas de la pokedex, también se puede tocar cada Pokémon para ver información mas detallada del mismo, como el peso, altura, tipo y habilidades.
+Technologies used
 
-Tecnologías usadas
+To develop this project, Unity 3d, C# as a programming language, Vuforia, the SimpleJSON library was imported to facilitate the Json management, PokeApi.co services were also consumed, Playfab was used as a backend service.
 
-Para desarrollar este proyecto se usó, Unity 3d, C# como lenguaje de programación, Vuforia, se importó la librería de SimpleJSON para facilitar el manejo de estos, también se consumieron los servicios de PokeApi.co, se usó Playfab como servicio de backend.
+Technical requirements
 
-Requisitos técnicos
-
-Se debe tener un celular Android con cámara. API level 24 minimun, este build fue testeado en un celular OnePlus 7 Pro y un Xiaomi Note 9.
+You must have an Android phone with a camera. API level 24 minimum, this build was tested on a OnePlus 7 Pro cell phone and a Xiaomi Note 9.
